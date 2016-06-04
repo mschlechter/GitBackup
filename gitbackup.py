@@ -1,21 +1,26 @@
 #!/usr/bin/env python
+#
+# Simple script to backup all git repositories in a given
+# source directory.
 
 import sys
 import os
 import shutil
 
-def get_immediate_subdirectories(parent_dir):
+# Get immediate subdirectories which name ends with .git
+def get_git_subdirectories(parent_dir):
     return sorted([
         name for name in os.listdir(parent_dir)
         if os.path.isdir(os.path.join(parent_dir, name))
+        and name.endswith(".git")
     ])
 
+# Create a bare git clone in the destination
 def create_git_clone(parent_dir, git_dir, dest_dir):
     dest_git_dir = os.path.join(dest_dir, git_dir)
     if os.path.exists(dest_git_dir):
         print "Removing " + dest_git_dir
         shutil.rmtree(dest_git_dir)
-    
     print "Creating clone for " + git_dir
     # git clone --bare parent_dir+git_dir
     cmd = "git clone --bare " + os.path.join(parent_dir, git_dir)
@@ -46,7 +51,7 @@ if not os.path.exists(dest_dir):
 
 print "\nCreating bare git clones...\n"
 
-git_directories = get_immediate_subdirectories(source_dir)
+git_directories = get_git_subdirectories(source_dir)
 
 os.chdir(dest_dir)
 
