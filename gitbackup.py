@@ -2,6 +2,12 @@
 #
 # Simple script to backup all git repositories in a given
 # source directory.
+#
+# TODO:
+# Error handling
+# Silent git execution
+# Better arg parsing
+# Support for CIFS and SFTP destinations
 
 import sys
 import os
