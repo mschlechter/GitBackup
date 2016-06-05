@@ -26,7 +26,7 @@ from mountpoint import MountPoint
 # else:
 #     print ("mount failure")
 
-print ("Git Backup 0.1 - by M. Schlechter\n")
+print ("Git Backup - by M. Schlechter\n")
 
 if len(sys.argv) != 3:
     print ("Correct syntax is:\n")
