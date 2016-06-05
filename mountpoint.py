@@ -1,5 +1,6 @@
 import subprocess
 
+# Mount point helper class
 class MountPoint:
     
     def __init__(self, directory):

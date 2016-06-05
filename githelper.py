@@ -1,8 +1,10 @@
 import os
 import shutil
+import subprocess
 
 class GitHelper:
     
+    # Source and destination directory are required
     def __init__(self, source_dir, destination_dir):
         self.cur_dir = os.path.abspath(os.path.curdir)
         self.source_dir = os.path.realpath(source_dir)
@@ -24,9 +26,10 @@ class GitHelper:
             shutil.rmtree(dest_git_dir)
         print "Creating clone for " + git_dir
         # git clone --bare parent_dir+git_dir
-        cmd = "git clone --bare " + os.path.join(self.source_dir, git_dir)
-        os.system(cmd)
+        args = ["git", "clone", "--bare", os.path.join(self.source_dir, git_dir)]
+        return subprocess.call(args) == 0
 
+    # Clone all git repositories from the source directory
     def clone_repositories(self):
         
         git_directories = self.get_git_subdirectories()
@@ -34,7 +37,8 @@ class GitHelper:
         os.chdir(self.destination_dir)
 
         for git_dir in git_directories:
-            self.create_git_clone(git_dir)
+            if not self.create_git_clone(git_dir):
+                sys.exit(1) # Cloning failed
 
         os.chdir(self.cur_dir)
 
