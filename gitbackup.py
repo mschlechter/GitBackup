@@ -7,7 +7,9 @@
 # Error handling
 # Silent git execution
 # Better arg parsing
-# Support for CIFS and SFTP destinations
+# Support for mountpoints (allowing CIFS destination)
+#   Make sure can mount /mnt/backup easily in Linux with multiple users
+#   (/etc/fstab) and let this script just mount the mountpoint and check it
 
 import sys
 import os
