@@ -38,14 +38,4 @@ gh = GitHelper(sys.argv[1], sys.argv[2])
 print ("Source directory      : " + gh.source_dir)
 print ("Destination directory : " + gh.destination_dir)
 
-if not os.path.exists(gh.source_dir):
-    print ("\nERROR : Source directory does not exist!")
-    sys.exit(1)
-
-if not os.path.exists(gh.destination_dir):
-    print ("\nERROR : Destination directory does not exist!")
-    sys.exit(1)
-
-print ("\nCreating bare git clones...\n")
-
 gh.clone_repositories()

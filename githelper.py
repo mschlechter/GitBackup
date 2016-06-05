@@ -1,3 +1,4 @@
+import sys
 import os
 import shutil
 import subprocess
@@ -29,9 +30,23 @@ class GitHelper:
         args = ["git", "clone", "--bare", os.path.join(self.source_dir, git_dir)]
         return subprocess.call(args) == 0
 
+    def check_directories(self):
+        
+        if not os.path.exists(self.source_dir):
+            print ("\nERROR : Source directory does not exist!")
+            sys.exit(1)
+
+        if not os.path.exists(self.destination_dir):
+            print ("\nERROR : Destination directory does not exist!")
+            sys.exit(1)
+
     # Clone all git repositories from the source directory
     def clone_repositories(self):
         
+        self.check_directories()
+
+        print ("\nCreating bare git clones...\n")
+
         git_directories = self.get_git_subdirectories()
 
         os.chdir(self.destination_dir)
