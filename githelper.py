@@ -22,9 +22,9 @@ class GitHelper:
     def create_git_clone(self, git_dir):
         dest_git_dir = os.path.join(self.destination_dir, git_dir)
         if os.path.exists(dest_git_dir):
-            print "Removing " + dest_git_dir
+            print ("Removing " + dest_git_dir)
             shutil.rmtree(dest_git_dir)
-        print "Creating clone for " + git_dir
+        print ("Creating clone for " + git_dir)
         # git clone --bare parent_dir+git_dir
         args = ["git", "clone", "--bare", os.path.join(self.source_dir, git_dir)]
         return subprocess.call(args) == 0
