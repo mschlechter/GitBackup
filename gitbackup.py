@@ -15,6 +15,12 @@ import sys
 import os
 import shutil
 
+from mountpoint import MountPoint
+
+# test mountpoint class 
+mp = MountPoint("/mnt/backup")
+mp.do_mount()
+
 # Get immediate subdirectories which name ends with .git
 def get_git_subdirectories(parent_dir):
     return sorted([
