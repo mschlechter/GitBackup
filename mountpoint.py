@@ -1,11 +1,16 @@
+import os
+
 class MountPoint:
     
     def __init__(self, directory):
         self.directory = directory
         
     def do_mount(self):
-        return False
+        cmd = "mount " + self.directory
+        return os.system(cmd) == 0
         
     def do_unmount(self):
-        return False
+        cmd = "unmount " + self.directory
+        return os.system(cmd) == 0
+
         

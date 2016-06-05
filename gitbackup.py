@@ -19,7 +19,11 @@ from mountpoint import MountPoint
 
 # test mountpoint class 
 mp = MountPoint("/mnt/backup")
-mp.do_mount()
+r = mp.do_mount()
+if r:
+    print "mount success"
+else:
+    print "mount failure"
 
 # Get immediate subdirectories which name ends with .git
 def get_git_subdirectories(parent_dir):
