@@ -5,7 +5,7 @@ import subprocess
 class GitHelper:
     
     # Source and destination directory are required
-    def __init__(self, source_dir, destination_dir):
+    def __init__(self, source_dir: str, destination_dir: str):
         self.cur_dir = os.path.abspath(os.path.curdir)
         self.source_dir = os.path.realpath(source_dir)
         self.destination_dir = os.path.realpath(destination_dir)

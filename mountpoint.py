@@ -3,7 +3,7 @@ import subprocess
 # Mount point helper class
 class MountPoint:
     
-    def __init__(self, directory):
+    def __init__(self, directory: str):
         self.directory = directory
         
     def do_mount(self) -> bool:
