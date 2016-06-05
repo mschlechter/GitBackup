@@ -1,4 +1,4 @@
-import os
+import subprocess
 
 class MountPoint:
     
@@ -6,11 +6,11 @@ class MountPoint:
         self.directory = directory
         
     def do_mount(self):
-        cmd = "mount " + self.directory
-        return os.system(cmd) == 0
+        result = subprocess.call(["mount", self.directory])
+        return result == 0
         
     def do_unmount(self):
-        cmd = "unmount " + self.directory
-        return os.system(cmd) == 0
+        result = subprocess.call(["unmount", self.directory])
+        return result == 0
 
         
