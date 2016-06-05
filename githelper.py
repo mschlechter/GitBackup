@@ -19,7 +19,7 @@ class GitHelper:
         ])
         
     # Create a bare git clone in the destination
-    def create_git_clone(self, git_dir):
+    def create_git_clone(self, git_dir: str) -> bool:
         dest_git_dir = os.path.join(self.destination_dir, git_dir)
         if os.path.exists(dest_git_dir):
             print ("Removing " + dest_git_dir)

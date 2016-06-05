@@ -22,9 +22,9 @@ from mountpoint import MountPoint
 # mp = MountPoint("/mnt/backup")
 # r = mp.do_mount()
 # if r:
-#     print "mount success"
+#     print ("mount success")
 # else:
-#     print "mount failure"
+#     print ("mount failure")
 
 print ("Git Backup 0.1 - by M. Schlechter\n")
 
