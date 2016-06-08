@@ -71,7 +71,9 @@ class GitHelper:
         # Mount
         if self.mountpoint:
             mount_point = mountpoint.MountPoint(self.mountpoint)
-            mount_point.do_mount()
+            if not mount_point.do_mount():
+                print("Failed to mount " + self.mountpoint)
+                sys.exit(1)
 
         print ("\nCreating bare git clones...\n")
 
