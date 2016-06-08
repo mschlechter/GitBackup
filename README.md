@@ -11,11 +11,7 @@ Example usage:
 This will clone all bare repositories in /files/gitrepos to a temporary working
 directory and then create zipfiles in /backup/gitrepos.
 
-![screenshot image](screenshot.png "Screenshot running VsCode on Ubuntu")
+It's also possible to use a mount point on Linux (defined in /etc/fstab) to
+temporarily mount a backup share from another server.
 
-TODO:
-
-1. Add mountpoint support. Making it possible to mount a backup share on demand
-   and unmount it when the script is done.
-2. Improve command arguments parsing and add more options (verbosity, mountpoint,
-   etc).
+The script works fine on Windows too, but without the mount point support.
