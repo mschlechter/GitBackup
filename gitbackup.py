@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 #
 # Script to backup all git repositories in a given source directory.
-#
-# TODO:
-# Silent git execution
-# Support for mountpoints (allowing CIFS destination)
-#   Make sure can mount /mnt/backup easily in Linux with multiple users
-#   (/etc/fstab) and let this script just mount the mountpoint and check it
 
 import sys
 import os
@@ -15,14 +9,6 @@ import shutil
 from arghelper import ArgHelper
 from githelper import GitHelper
 from mountpoint import MountPoint
-
-# test mountpoint class 
-# mp = MountPoint("/mnt/backup")
-# r = mp.do_mount()
-# if r:
-#     print ("mount success")
-# else:
-#     print ("mount failure")
 
 print ("Git Backup - by M. Schlechter\n")
 
