@@ -5,18 +5,21 @@ import subprocess
 import tempfile
 import zipfile
 
+import arghelper
 import zipfunctions
 
 class GitHelper:
     
     # Source and destination directory are required
-    def __init__(self, source_dir: str, destination_dir: str, zip: bool, verbose: bool):
+    def __init__(self, ah: arghelper.ArgHelper):
         self.cur_dir = os.path.abspath(os.path.curdir)
-        self.source_dir = os.path.realpath(source_dir)
-        self.destination_dir = os.path.realpath(destination_dir)
-        self.zip = zip
-        self.verbose = verbose
+        self.source_dir = os.path.realpath(ah.source)
+        self.destination_dir = os.path.realpath(ah.destination)
         self.temp_dir = tempfile.mkdtemp()
+
+        self.zip = ah.zip
+        self.verbose = ah.verbose
+        self.mountpoint = ah.mountpoint
     
     # Get immediate subdirectories which name ends with .git
     def __get_git_subdirectories(self):
@@ -53,6 +56,10 @@ class GitHelper:
             print ("\nERROR : Destination directory does not exist!")
             sys.exit(1)
     
+        if self.mountpoint and not os.path.exists(self.mountpoint):
+            print ("\nERROR : Mountpoint does not exist!")
+            sys.exit(1)
+
     # Clone all git repositories from the source directory
     def clone_repositories(self):
         

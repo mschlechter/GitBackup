@@ -10,6 +10,7 @@ class ArgHelper:
         self.source = ""
         self.zip = False
         self.verbose = False
+        self.mountpoint = None
 
         self.__parse_arguments()
 
@@ -32,6 +33,9 @@ class ArgHelper:
 
             if currentarg == "-verbose":
                 self.verbose = True
+
+            if currentarg.startswith("-mnt="):
+                self.mountpoint = currentarg[5:]
 
     def __print_banner(self):
 
