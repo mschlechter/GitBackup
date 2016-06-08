@@ -10,6 +10,22 @@
 # Support for mountpoints (allowing CIFS destination)
 #   Make sure can mount /mnt/backup easily in Linux with multiple users
 #   (/etc/fstab) and let this script just mount the mountpoint and check it
+# Archive option which creates a zip file (and removes the target repository again)
+# Use:
+
+# import os
+# import zipfile
+
+# def zipdir(path, ziph):
+#     # ziph is zipfile handle
+#     for root, dirs, files in os.walk(path):
+#         for file in files:
+#             ziph.write(os.path.join(root, file))
+
+# if __name__ == '__main__':
+#     zipf = zipfile.ZipFile('Python.zip', 'w', zipfile.ZIP_DEFLATED)
+#     zipdir('tmp/', zipf)
+#     zipf.close()
 
 import sys
 import os
