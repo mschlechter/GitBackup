@@ -6,12 +6,12 @@ creates a backup in the destination directory.
 
 Example usage:
 
-    gitbackup.py /files/gitrepos /backup/gitrepos
+    python gitbackup.py /files/gitrepos /backup/gitrepos
 
 This will clone all bare repositories in /files/gitrepos to a temporary working
 directory and then copy the clones to /backup/gitrepos.
 
-    gitbackup.py -zip /files/gitrepos /backup/gitrepos
+    python gitbackup.py -zip /files/gitrepos /backup/gitrepos
 
 This will clone all bare repositories in /files/gitrepos to a temporary working
 directory and then create zipfiles in /backup/gitrepos.
@@ -19,7 +19,7 @@ directory and then create zipfiles in /backup/gitrepos.
 It's also possible to use a mount point on Linux (defined in /etc/fstab) to
 temporarily mount a backup share from another server.
 
-    gitbackup.py -mnt=/mnt/backup -zip /files/gitrepos /mnt/backup/gitrepos
+    python gitbackup.py -mnt=/mnt/backup -zip /files/gitrepos /mnt/backup/gitrepos
 
 This will first mount /mnt/backup, then clone all bare repositories in 
 /files/gitrepos to a temporary working directory, then create zipfiles 
