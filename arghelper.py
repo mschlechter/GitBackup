@@ -6,6 +6,11 @@ class ArgHelper:
 
     def __init__(self, args: Iterable[str]):
         self.args = args
+        self.destination = ""
+        self.source = ""
+        self.zip = False
+        self.verbose = False
+
         self.__parse_arguments()
 
     def __parse_arguments(self):
@@ -19,9 +24,6 @@ class ArgHelper:
         self.source = self.args[argc-2]
 
         # Set options
-        self.zip = False
-        self.verbose = False
-
         for i in range(0, argc-2):
             currentarg = self.args[i]
 
