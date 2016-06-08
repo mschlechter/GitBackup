@@ -7,6 +7,7 @@ import zipfile
 
 import arghelper
 import zipfunctions
+import mountpoint
 
 class GitHelper:
     
@@ -65,6 +66,13 @@ class GitHelper:
         
         self.__check_directories()
 
+        mount_point = None
+
+        # Mount
+        if self.mountpoint:
+            mount_point = mountpoint.MountPoint(self.mountpoint)
+            mount_point.do_mount()
+
         print ("\nCreating bare git clones...\n")
 
         git_directories = self.__get_git_subdirectories()
@@ -103,6 +111,10 @@ class GitHelper:
         # Remove temp dir
         print ("Removing " + self.temp_dir)
         shutil.rmtree(self.temp_dir, onerror=self.__handle_rmtree_error)
+
+        # Unmount
+        if self.mountpoint:
+            mount_point.do_unmount()
 
         
         

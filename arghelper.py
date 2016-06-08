@@ -1,4 +1,6 @@
 import sys
+import platform
+
 from typing import Iterable
 
 # For parsing commandline arguments
@@ -13,6 +15,11 @@ class ArgHelper:
         self.mountpoint = None
 
         self.__parse_arguments()
+
+    def __platform_is_windows(self) -> bool:
+
+        current_platform = platform.system()
+        return current_platform.startswith("Windows") or current_platform.startswith("CYGWIN_NT")
 
     def __parse_arguments(self):
         argc = len(self.args)
@@ -35,6 +42,9 @@ class ArgHelper:
                 self.verbose = True
 
             if currentarg.startswith("-mnt="):
+                if self.__platform_is_windows():
+                    print("Mount points are not supported on Windows!")
+                    sys.exit(1)
                 self.mountpoint = currentarg[5:]
 
     def __print_banner(self):
