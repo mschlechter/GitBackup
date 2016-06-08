@@ -36,7 +36,7 @@ class ArgHelper:
     def __print_banner(self):
 
         print("Correct syntax is:\n")
-        print("gitbackup <options> SOURCE_DIRECTORY DESTINATION_DIRECTORY")
+        print("gitbackup.py <options> SOURCE_DIRECTORY DESTINATION_DIRECTORY")
         print("")
         print("Options can be:")
         print("-mnt=PATH   Mount and unmount PATH")
@@ -45,4 +45,4 @@ class ArgHelper:
         print("")
         print("Example usage:")
         print("")
-        print("gitbackup -mnt=/backup -zip -verbose /files/gitrepos /backup/gitrepos")
+        print("gitbackup.py -mnt=/backup -zip -verbose /files/gitrepos /backup/gitrepos")
