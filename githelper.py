@@ -6,10 +6,12 @@ import subprocess
 class GitHelper:
     
     # Source and destination directory are required
-    def __init__(self, source_dir: str, destination_dir: str):
+    def __init__(self, source_dir: str, destination_dir: str, zip: bool, verbose: bool):
         self.cur_dir = os.path.abspath(os.path.curdir)
         self.source_dir = os.path.realpath(source_dir)
         self.destination_dir = os.path.realpath(destination_dir)
+        self.zip = zip
+        self.verbose = verbose
     
     # Get immediate subdirectories which name ends with .git
     def __get_git_subdirectories(self):

@@ -31,6 +31,7 @@ import sys
 import os
 import shutil
 
+from arghelper import ArgHelper
 from githelper import GitHelper
 from mountpoint import MountPoint
 
@@ -44,14 +45,12 @@ from mountpoint import MountPoint
 
 print ("Git Backup - by M. Schlechter\n")
 
-if len(sys.argv) != 3:
-    print ("Correct syntax is:\n")
-    print ("gitbackup SOURCE_DIRECTORY DESTINATION_DIRECTORY")
-    sys.exit(1)
-
-gh = GitHelper(sys.argv[1], sys.argv[2])
+ah = ArgHelper(sys.argv)
+gh = GitHelper(ah.source, ah.destination, ah.zip, ah.verbose)
  
-print ("Source directory      : " + gh.source_dir)
-print ("Destination directory : " + gh.destination_dir)
+print("Source directory      : " + gh.source_dir)
+print("Destination directory : " + gh.destination_dir)
+print("Create zip archives   : " + str(gh.zip))
+print("Verbose               : " + str(gh.verbose))
 
 gh.clone_repositories()
