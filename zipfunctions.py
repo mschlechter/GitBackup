@@ -1,7 +1,8 @@
 import os
 import zipfile
 
-def add_dir_to_zip(path, ziphandle):
+# Add directory to zip file
+def add_dir_to_zip(path, ziphandle: zipfile.ZipFile):
     for root, dirs, files in os.walk(path):
         for file in files:
             absfilename = os.path.join(root, file)
@@ -12,7 +13,8 @@ def add_dir_to_zip(path, ziphandle):
             arcname = os.path.relpath(absfilename, path)
             ziphandle.write(absfilename, arcname)
 
-def create_zip(filename, archive_dir):
+# Create new zip file for directory
+def create_zip(filename: str, archive_dir: str):
     zipf = zipfile.ZipFile(filename, 'w', zipfile.ZIP_DEFLATED)
     add_dir_to_zip(archive_dir, zipf)
     zipf.close()

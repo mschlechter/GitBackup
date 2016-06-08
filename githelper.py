@@ -26,7 +26,7 @@ class GitHelper:
             and name.endswith(".git")
         ])
             
-    # Handle access errors on Windows platform 
+    # Handle access errors (on Windows platform) 
     def __handle_rmtree_error(self, func, path, exc_info):
         import stat
         if not os.access(path, os.W_OK):
@@ -39,10 +39,10 @@ class GitHelper:
     # Create a bare git clone in the destination
     def __create_git_clone(self, git_dir: str) -> bool:
         temp_git_dir = os.path.join(self.temp_dir, git_dir)
-        # git clone --bare parent_dir+git_dir
         args = ["git", "clone", "--bare", os.path.join(self.source_dir, git_dir)]
         return subprocess.call(args) == 0
 
+    # Check if directories exist
     def __check_directories(self):
         
         if not os.path.exists(self.source_dir):
@@ -62,36 +62,38 @@ class GitHelper:
 
         git_directories = self.__get_git_subdirectories()
 
+        # Work from temp dir
         os.chdir(self.temp_dir)
 
         for git_dir in git_directories:
-            print ("Creating clone for " + git_dir)
-
             temp_git_dir = os.path.join(self.temp_dir, git_dir)
+            dest_git_dir = os.path.join(self.destination_dir, git_dir)
 
-            print ("Cloning into " + temp_git_dir)
+            print("Creating clone for " + git_dir)
+            print("Cloning into " + temp_git_dir)
 
             if not self.__create_git_clone(git_dir):
                 sys.exit(1) # Cloning failed
             
-            # clean target dir
-            dest_git_dir = os.path.join(self.destination_dir, git_dir)
+            # Clean target dir
             if os.path.exists(dest_git_dir):
-                print ("Removing " + dest_git_dir)
+                print("Removing " + dest_git_dir)
                 shutil.rmtree(dest_git_dir, onerror=self.__handle_rmtree_error)
 
             if self.zip:
-                # create zip archive
+                # Create zip archive
                 zipfile = dest_git_dir + ".zip"
-                print ("Create zip archive " + zipfile)
+                print("Create zip archive " + zipfile)
                 zipfunctions.create_zip(zipfile, temp_git_dir)
             else:
-                # copy to target
-                print ("Copying into " + dest_git_dir)
+                # Copy to target
+                print("Copying into " + dest_git_dir)
                 shutil.copytree(temp_git_dir, dest_git_dir)
 
+        # Change back to current dir
         os.chdir(self.cur_dir)
 
+        # Remove temp dir
         print ("Removing " + self.temp_dir)
         shutil.rmtree(self.temp_dir, onerror=self.__handle_rmtree_error)
 

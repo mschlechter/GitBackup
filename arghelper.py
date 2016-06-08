@@ -1,6 +1,7 @@
 import sys
 from typing import Iterable
 
+# For parsing commandline arguments
 class ArgHelper:
 
     def __init__(self, args: Iterable[str]):
@@ -13,6 +14,7 @@ class ArgHelper:
             self.__print_banner();
             sys.exit(1)
         
+        # Set destination and source
         self.destination = self.args[argc-1]
         self.source = self.args[argc-2]
 
