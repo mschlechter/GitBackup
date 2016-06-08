@@ -5,6 +5,8 @@ import subprocess
 import tempfile
 import zipfile
 
+import zipfunctions
+
 class GitHelper:
     
     # Source and destination directory are required
@@ -51,20 +53,6 @@ class GitHelper:
             print ("\nERROR : Destination directory does not exist!")
             sys.exit(1)
     
-    def zipdir(self, path, ziph):
-        # ziph is zipfile handle
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                absfilename = os.path.join(root, file)
-                arcname = os.path.relpath(absfilename, path)
-                #print(absfilename + " - " + arcname)
-                ziph.write(absfilename, arcname)
-
-    def __create_zip(self, filename, archive_dir):
-        zipf = zipfile.ZipFile(filename, 'w', zipfile.ZIP_DEFLATED)
-        self.zipdir(archive_dir, zipf)
-        zipf.close()
-
     # Clone all git repositories from the source directory
     def clone_repositories(self):
         
@@ -93,10 +81,10 @@ class GitHelper:
                 shutil.rmtree(dest_git_dir, onerror=self.__handle_rmtree_error)
 
             if self.zip:
-                # create zip FileExistsError
+                # create zip archive
                 zipfile = dest_git_dir + ".zip"
                 print ("Create zip archive " + zipfile)
-                self.__create_zip(zipfile, temp_git_dir)
+                zipfunctions.create_zip(zipfile, temp_git_dir)
             else:
                 # copy to target
                 print ("Copying into " + dest_git_dir)
