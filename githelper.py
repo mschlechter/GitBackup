@@ -57,7 +57,7 @@ class GitHelper:
             for file in files:
                 absfilename = os.path.join(root, file)
                 arcname = os.path.relpath(absfilename, path)
-                print(absfilename + " - " + arcname)
+                #print(absfilename + " - " + arcname)
                 ziph.write(absfilename, arcname)
 
     def __create_zip(self, filename, archive_dir):
@@ -93,7 +93,9 @@ class GitHelper:
                 shutil.rmtree(dest_git_dir, onerror=self.__handle_rmtree_error)
 
             if self.zip:
+                # create zip FileExistsError
                 zipfile = dest_git_dir + ".zip"
+                print ("Create zip archive " + zipfile)
                 self.__create_zip(zipfile, temp_git_dir)
             else:
                 # copy to target
