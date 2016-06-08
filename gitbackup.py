@@ -50,6 +50,7 @@ gh = GitHelper(ah.source, ah.destination, ah.zip, ah.verbose)
  
 print("Source directory      : " + gh.source_dir)
 print("Destination directory : " + gh.destination_dir)
+print("Temporary directory   : " + gh.temp_dir)
 print("Create zip archives   : " + str(gh.zip))
 print("Verbose               : " + str(gh.verbose))
 

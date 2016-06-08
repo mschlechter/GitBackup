@@ -2,6 +2,7 @@ import sys
 import os
 import shutil
 import subprocess
+import tempfile
 
 class GitHelper:
     
@@ -12,6 +13,7 @@ class GitHelper:
         self.destination_dir = os.path.realpath(destination_dir)
         self.zip = zip
         self.verbose = verbose
+        self.temp_dir = tempfile.mkdtemp()
     
     # Get immediate subdirectories which name ends with .git
     def __get_git_subdirectories(self):
@@ -33,11 +35,7 @@ class GitHelper:
 
     # Create a bare git clone in the destination
     def __create_git_clone(self, git_dir: str) -> bool:
-        dest_git_dir = os.path.join(self.destination_dir, git_dir)
-        if os.path.exists(dest_git_dir):
-            print ("Removing " + dest_git_dir)
-            shutil.rmtree(dest_git_dir, onerror=self.__handle_rmtree_error)
-        print ("Creating clone for " + git_dir)
+        temp_git_dir = os.path.join(self.temp_dir, git_dir)
         # git clone --bare parent_dir+git_dir
         args = ["git", "clone", "--bare", os.path.join(self.source_dir, git_dir)]
         return subprocess.call(args) == 0
@@ -61,13 +59,32 @@ class GitHelper:
 
         git_directories = self.__get_git_subdirectories()
 
-        os.chdir(self.destination_dir)
+        os.chdir(self.temp_dir)
 
         for git_dir in git_directories:
+            print ("Creating clone for " + git_dir)
+
+            temp_git_dir = os.path.join(self.temp_dir, git_dir)
+
+            print ("Cloning into " + temp_git_dir)
+
             if not self.__create_git_clone(git_dir):
                 sys.exit(1) # Cloning failed
+            
+            # clean target dir
+            dest_git_dir = os.path.join(self.destination_dir, git_dir)
+            if os.path.exists(dest_git_dir):
+                print ("Removing " + dest_git_dir)
+                shutil.rmtree(dest_git_dir, onerror=self.__handle_rmtree_error)
+            
+            # copy to target
+            print ("Copying into " + dest_git_dir)
+            shutil.copytree(temp_git_dir, dest_git_dir)
 
         os.chdir(self.cur_dir)
+
+        print ("Removing " + self.temp_dir)
+        shutil.rmtree(self.temp_dir, onerror=self.__handle_rmtree_error)
 
         
         
