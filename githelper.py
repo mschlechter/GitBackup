@@ -55,7 +55,10 @@ class GitHelper:
         # ziph is zipfile handle
         for root, dirs, files in os.walk(path):
             for file in files:
-                ziph.write(os.path.join(root, file))
+                absfilename = os.path.join(root, file)
+                arcname = os.path.relpath(absfilename, path)
+                print(absfilename + " - " + arcname)
+                ziph.write(absfilename, arcname)
 
     def __create_zip(self, filename, archive_dir):
         zipf = zipfile.ZipFile(filename, 'w', zipfile.ZIP_DEFLATED)
