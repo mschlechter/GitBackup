@@ -2,7 +2,7 @@ import os
 import zipfile
 
 # Add directory to zip file
-def add_dir_to_zip(path, ziphandle: zipfile.ZipFile):
+def add_dir_to_zip(path: str, ziphandle: zipfile.ZipFile):
     for root, dirs, files in os.walk(path):
         for file in files:
             absfilename = os.path.join(root, file)
