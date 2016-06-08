@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 #
-# Simple script to backup all git repositories in a given
-# source directory.
+# Script to backup all git repositories in a given source directory.
 #
 # TODO:
 # Silent git execution
