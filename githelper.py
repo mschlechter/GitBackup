@@ -18,13 +18,23 @@ class GitHelper:
             if os.path.isdir(os.path.join(self.source_dir, name))
             and name.endswith(".git")
         ])
-        
+            
+    # Handle access errors on Windows platform 
+    def handle_rmtree_error(self, func, path, exc_info):
+        import stat
+        if not os.access(path, os.W_OK):
+            # Is the error an access error ?
+            os.chmod(path, stat.S_IWUSR)
+            func(path)
+        else:
+            raise
+
     # Create a bare git clone in the destination
     def create_git_clone(self, git_dir: str) -> bool:
         dest_git_dir = os.path.join(self.destination_dir, git_dir)
         if os.path.exists(dest_git_dir):
             print ("Removing " + dest_git_dir)
-            shutil.rmtree(dest_git_dir)
+            shutil.rmtree(dest_git_dir, onerror=self.handle_rmtree_error)
         print ("Creating clone for " + git_dir)
         # git clone --bare parent_dir+git_dir
         args = ["git", "clone", "--bare", os.path.join(self.source_dir, git_dir)]
