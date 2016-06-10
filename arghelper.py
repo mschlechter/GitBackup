@@ -40,6 +40,9 @@ class ArgHelper:
                 self.zip = True
 
             if currentarg == "-tar":
+                if self.__platform_is_windows():
+                    print("Tar is not supported on Windows!")
+                    sys.exit(1)
                 self.tar = True
 
             if currentarg == "-verbose":
