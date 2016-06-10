@@ -13,6 +13,7 @@ class ArgHelper:
         self.zip = False
         self.verbose = False
         self.mountpoint = None
+        self.tar = False
 
         self.__parse_arguments()
 
@@ -38,6 +39,9 @@ class ArgHelper:
             if currentarg == "-zip":
                 self.zip = True
 
+            if currentarg == "-tar":
+                self.tar = True
+
             if currentarg == "-verbose":
                 self.verbose = True
 
@@ -55,6 +59,7 @@ class ArgHelper:
         print("Options can be:")
         print("-mnt=PATH   Mount and unmount PATH")
         print("-zip        Create zip archives")
+        print("-tar        Create tar.gz archives")
         print("-verbose    Show git output")
         print("")
         print("Example usage:")

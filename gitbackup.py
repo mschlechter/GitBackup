@@ -19,6 +19,7 @@ print("Source directory      : " + gh.source_dir)
 print("Destination directory : " + gh.destination_dir)
 print("Temporary directory   : " + gh.temp_dir)
 print("Create zip archives   : " + str(gh.zip))
+print("Create tar archives   : " + str(gh.tar))
 print("Verbose               : " + str(gh.verbose))
 
 if gh.mountpoint:

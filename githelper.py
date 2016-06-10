@@ -19,6 +19,7 @@ class GitHelper:
         self.temp_dir = tempfile.mkdtemp()
 
         self.zip = ah.zip
+        self.tar = ah.tar
         self.verbose = ah.verbose
         self.mountpoint = ah.mountpoint
     
@@ -93,15 +94,26 @@ class GitHelper:
                 sys.exit(1) # Cloning failed
             
             # Clean target dir
-            if os.path.exists(dest_git_dir):
+            if os.path.exists(dest_git_dir) and os.path.isdir(dest_git_dir):
                 print("Removing " + dest_git_dir)
                 shutil.rmtree(dest_git_dir, onerror=self.__handle_rmtree_error)
+
+            # Remove file with same name as target dir
+            if os.path.exists(dest_git_dir) and os.path.isfile(dest_git_dir):
+                print("Removing " + dest_git_dir)
+                os.remove(dest_git_dir)
 
             if self.zip:
                 # Create zip archive
                 zipfile = dest_git_dir + ".zip"
                 print("Create zip archive " + zipfile)
                 zipfunctions.create_zip(zipfile, temp_git_dir)
+            elif self.tar:
+                # Create tar archive
+                tarfile = dest_git_dir + ".tar.gz"
+                tarargs = ["tar", "cfz", tarfile, temp_git_dir]
+                if subprocess.call(tarargs) != 0:
+                    sys.exit(1) # Tar failed
             else:
                 # Copy to target
                 print("Copying into " + dest_git_dir)
